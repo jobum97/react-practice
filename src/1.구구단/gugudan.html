@@ -1,0 +1,59 @@
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>구구단</title>
+    <base href="/" />
+</head>
+<body>
+<div id="root"></div>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<!--<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>-->
+<!--<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>-->
+<script type="text/babel">
+    'use strict';
+
+    function GuGuDan() {
+        const [value, setValue] = React.useState('');
+        const [result, setResult] = React.useState('');
+        const [firstNum, setFirstNum] = React.useState(Math.ceil(Math.random() * 9));
+        const [secondNum, setSecondNum] = React.useState(Math.ceil(Math.random() * 9));
+
+        function onSubmit(event){
+            event.preventDefault()
+            if (parseInt(value) === firstNum * secondNum) {
+                setResult('정답');
+                setValue('');
+                setFirstNum(Math.ceil(Math.random() * 9));
+                setSecondNum(Math.ceil(Math.random() * 9));
+            }else{
+                setResult('땡');
+                setValue('');
+                setFirstNum(Math.ceil(Math.random() * 9));
+                setSecondNum(Math.ceil(Math.random() * 9));
+            }
+        }
+
+        function onChange(event){
+            setValue(event.target.value);
+        }
+
+        return (
+            <React.Fragment>
+                <div> {firstNum} 곱하기 {secondNum}는?</div>
+                <form onSubmit={onSubmit}>
+                    <input type="number" value={value} onChange={onChange}/>
+                    <button>입력!</button>
+                </form>
+                <div>{result}</div>
+            </React.Fragment>
+        );
+    }
+
+</script>
+<script type="text/babel">
+    ReactDOM.createRoot(document.querySelector('#root')).render(<GuGuDan />);
+</script>
+</body>
+</html>
