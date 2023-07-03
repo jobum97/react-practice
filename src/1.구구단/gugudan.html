@@ -19,6 +19,7 @@
         const [result, setResult] = React.useState('');
         const [firstNum, setFirstNum] = React.useState(Math.ceil(Math.random() * 9));
         const [secondNum, setSecondNum] = React.useState(Math.ceil(Math.random() * 9));
+        const inputEl = React.useRef(null);
 
         function onSubmit(event){
             event.preventDefault()
@@ -27,11 +28,13 @@
                 setValue('');
                 setFirstNum(Math.ceil(Math.random() * 9));
                 setSecondNum(Math.ceil(Math.random() * 9));
+                inputEl.current.focus();
             }else{
                 setResult('땡');
                 setValue('');
                 setFirstNum(Math.ceil(Math.random() * 9));
                 setSecondNum(Math.ceil(Math.random() * 9));
+                inputEl.current.focus();
             }
         }
 
@@ -43,7 +46,11 @@
             <React.Fragment>
                 <div> {firstNum} 곱하기 {secondNum}는?</div>
                 <form onSubmit={onSubmit}>
-                    <input type="number" value={value} onChange={onChange}/>
+                    <input
+                        ref={inputEl}
+                        type="number"
+                        value={value}
+                        onChange={onChange}/>
                     <button>입력!</button>
                 </form>
                 <div>{result}</div>
